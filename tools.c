@@ -1,28 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/20 16:23:22 by lleverge         ###   ########.fr       */
+/*   Created: 2016/03/20 15:31:10 by lleverge          #+#    #+#             */
+/*   Updated: 2016/03/20 16:10:39 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "libft/libft.h"
+#include "minishell.h"
 
-typedef struct			s_env
+void		print_list(t_env *env)
 {
-	char			*var;
-	struct s_env	*next;
-}						t_env;
+	if (env)
+	{
+		while (env)
+		{
+			ft_putstr(env->var);
+			ft_putchar('\n');
+			env = env->next;
+		}
+	}
+}
 
-t_env					*env_in_list(char *envar, t_env *start);
-void					print_list(t_env *env);
-void					print_tab(char **tab);
-int						read_entry(char *cmd, t_env *env);
-void					print_prompt(void);
-#endif
+void		print_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i] != 0)
+	{
+		ft_putstr(tab[i]);
+		ft_putchar('\n');
+		i++;
+	}
+}
+
+void		print_prompt(void)
+{
+	ft_putstr("$> ");
+}
