@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/19 16:36:28 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/20 16:53:31 by lleverge         ###   ########.fr       */
+/*   Created: 2016/03/20 16:37:36 by lleverge          #+#    #+#             */
+/*   Updated: 2016/03/20 16:43:15 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				main(int argc, char **argv, char **environ)
+void		free_list(t_env **head)
+{
+	t_env	*current;
+	t_env	*next;
+
+	current = *head;
+	while (current)
+	{
+		next = current->next;
+		ft_strdel(&(current->var));
+		free(current);
+		current = next;
+	}
+	*head = NULL;
+}
+
+void		free_tab(char **tab)
 {
 	int		i;
-	char	**envi;
-	t_env	*env;
-	char	*line;
 
 	i = 0;
-	line = NULL;
-	envi = ft_tabdup(environ);
-	if (!(env = (t_env *)malloc(sizeof(t_env))))
-		exit(1);
-	env = NULL;
-	while (envi[++i] != 0)
-		env = env_in_list(envi[i], env);
-	free_tab(envi);
-	if (argc == 1)
+	while (tab[i] != 0)
 	{
-		ft_strlen(argv[0]);
-		while ((read_entry(line, env)) != -1)
-		{
-			print_prompt();
-			get_next_line(0, &line);
-		}
+		ft_strdel(&tab[i]);
+		i++;
 	}
-	free_list(&env);
-	return (0);
+	free(tab);
 }

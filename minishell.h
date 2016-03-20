@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/20 16:30:51 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/20 16:46:16 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct			s_env
 	struct s_env	*next;
 }						t_env;
 
+void					free_list(t_env **head);
+void					free_tab(char **tab);
 char					**ft_tabdup(char **tab);
 int						count_tablen(char **tab);
 t_env					*env_in_list(char *envar, t_env *start);
