@@ -6,13 +6,13 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/20 16:52:16 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:54:27 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env		*env_in_list(char *envar, t_env *start)
+t_env				*env_in_list(char *envar, t_env *start)
 {
 	int		i;
 	t_env	*tmp;
@@ -30,11 +30,8 @@ t_env		*env_in_list(char *envar, t_env *start)
 	return (start);
 }
 
-int			read_entry(char *cmd, t_env *env)
+static int			manage_entry(char *cmd, t_env *env)
 {
-	int	i;
-
-	i = 0;
 	if (cmd == NULL)
 		return (1);
 	if (ft_strcmp(cmd, "exit") == 0)
@@ -46,4 +43,26 @@ int			read_entry(char *cmd, t_env *env)
 	}
 	else
 		return (0);
+}
+
+int					read_entry(char **cmd, t_env *env)
+{
+	int		i;
+	int		j;
+	char	**tab;
+
+	i = 0;
+	while (cmd[i])
+	{
+		j = 0;
+		tab = ft_strsplit(cmd[i], ' ');
+		while (tab[j])
+		{
+			if (manage_entry(tab[j], env) == -1)
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }

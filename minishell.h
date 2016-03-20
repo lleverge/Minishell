@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/20 16:46:16 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/20 17:19:30 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int						count_tablen(char **tab);
 t_env					*env_in_list(char *envar, t_env *start);
 void					print_list(t_env *env);
 void					print_tab(char **tab);
-int						read_entry(char *cmd, t_env *env);
+int						read_entry(char **cmd, t_env *env);
 void					print_prompt(void);
 #endif
