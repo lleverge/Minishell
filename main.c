@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:36:28 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 17:38:30 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 17:52:22 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				main(int argc, char **argv, char **environ)
 	t_env	*env;
 	char	*line;
 
-	i = 0;
+	i = -1;
 	line = ft_strdup("");
 	envi = ft_tabdup(environ);
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
