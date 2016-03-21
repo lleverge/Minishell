@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 13:58:26 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 15:27:48 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 16:17:13 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void			ft_cd(char *moveto, t_env *env)
 		{
 			if (ft_strcmp(env->name, "HOME") == 0)
 			{
+				change_varcontent(env, "OLDPWD", getwd(NULL));
 				chdir(env->content);
-				break ;
+				change_varcontent(env, "PWD", getwd(NULL));
 			}
 			env = env->next;
 		}
@@ -40,6 +41,9 @@ void			ft_cd(char *moveto, t_env *env)
 		return ;
 	}
 	else
+	{
+		change_varcontent(env, "OLDPWD", getwd(NULL));
 		chdir(moveto);
-	change_varcontent(env, "PWD", getwd(NULL));
+		change_varcontent(env, "PWD", getwd(NULL));
+	}
 }
