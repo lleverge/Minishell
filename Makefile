@@ -6,12 +6,13 @@
 #    By: lleverge <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/21 17:32:58 by lleverge          #+#    #+#              #
-#    Updated: 2016/03/20 16:40:15 by lleverge         ###   ########.fr        #
+#    Updated: 2016/03/21 12:04:24 by lleverge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRC = main.c	tools.c		ft_param.c		free.c
+SRC = main.c	tools.c		ft_param.c		free.c\
+	ft_setenv.c	ft_unsetenv.c
 OBJ = $(SRC:.c=.o)
 LIB = ./libft/libft.a
 FLAGS = -Wall -Wextra -Werror
