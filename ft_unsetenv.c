@@ -6,44 +6,20 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:53:41 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 14:19:46 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 16:41:06 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		*getvarcontent(char *envar)
+static void		unsetenv_error(char *varname)
 {
-	int		i;
-	int		j;
-	char	*varcontent;
-
-	i = 0;
-	j = 0;
-	while (envar[i])
-		i++;
-	while (envar[j] != '=')
-		j++;
-	j += 1;
-	varcontent = ft_strsub(envar, j, i);
-	return (varcontent);
+	ft_putstr_fd("Error: ", 2);
+	ft_putstr_fd(varname, 2);
+	ft_putstr_fd(": Not found\n", 2);
 }
 
-char		*getvarname(char *envar)
-{
-	int		i;
-	int		j;
-	char	*varname;
-
-	i = 0;
-	j = 0;
-	while (envar[i] != '=')
-		i++;
-	varname = ft_strsub(envar, j, i);
-	return (varname);
-}
-
-void		ft_unsetenv(t_env **begin_list, char *varname)
+void			ft_unsetenv(t_env **begin_list, char *varname)
 {
 	t_env	*tmp;
 
@@ -57,9 +33,10 @@ void		ft_unsetenv(t_env **begin_list, char *varname)
 			ft_strdel(&(tmp->name));
 			ft_strdel(&(tmp->content));
 			free(tmp);
-			ft_unsetenv(begin_list, varname);
 		}
 		else
 			ft_unsetenv(&(*begin_list)->next, varname);
 	}
+	else if (*begin_list == NULL)
+		unsetenv_error(varname);
 }

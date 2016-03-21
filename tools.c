@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:31:10 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 13:38:52 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 16:31:02 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void		print_list(t_env *env)
 			env = env->next;
 		}
 	}
+	else
+		ft_putstr("empty env\n");
 }
 
 void		print_tab(char **tab)
