@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 13:32:13 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 14:15:07 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ static int			manage_entry(char **cmd, t_env *env)
 	else if (ft_strcmp(cmd[0], "env") == 0)
 	{
 		print_list(env);
+		return (0);
+	}
+	else if (ft_strcmp(cmd[0], "cd") == 0)
+	{
+		ft_cd(cmd[1], env);
 		return (0);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:53:41 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 13:40:35 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 14:19:46 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char		*getvarname(char *envar)
 	return (varname);
 }
 
-void			ft_unsetenv(t_env **begin_list, char *varname)
+void		ft_unsetenv(t_env **begin_list, char *varname)
 {
 	t_env	*tmp;
 

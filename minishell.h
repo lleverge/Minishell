@@ -6,13 +6,14 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 13:32:58 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 14:14:57 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft/libft.h"
+# include <dirent.h>
 
 typedef struct			s_env
 {
@@ -21,6 +22,7 @@ typedef struct			s_env
 	struct s_env	*next;
 }						t_env;
 
+void					ft_cd(char *moveto, t_env *env);
 char					*getvarname(char *envar);
 char					*getvarcontent(char *envar);
 void					ft_unsetenv(t_env **begin_list, char *varname);
