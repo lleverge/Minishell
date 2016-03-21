@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 17:11:58 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/20 17:43:57 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 15:15:43 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char			**ft_strsplit(char const *s, char c)
 	i = 0;
 	word_nb = ft_countwords(s, c);
 	t = (char **)malloc(sizeof(char *) * (ft_countwords(s, c)) + 1);
-	if (t == NULL)
+	if (t == NULL || s == NULL)
 		return (NULL);
 	while (word_nb--)
 	{

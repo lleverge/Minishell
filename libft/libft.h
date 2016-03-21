@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 16:11:23 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/19 16:32:30 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 15:30:26 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <string.h>
 # include <fcntl.h>
 # define BUFF_SIZE 32
-
 
 typedef struct		s_list
 {
