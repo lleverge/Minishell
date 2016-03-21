@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 12:15:46 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:32:13 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_env				*env_in_list(char *envar, t_env *start)
 	i = 0;
 	tmp = (t_env *)malloc(sizeof(t_env));
 	voyager = start;
-	tmp->var = ft_strdup(envar);
+	tmp->name = getvarname(envar);
+	tmp->content = getvarcontent(envar);
 	if (start == NULL)
 		return (tmp);
 	while (voyager->next)
@@ -32,28 +33,21 @@ t_env				*env_in_list(char *envar, t_env *start)
 
 static int			manage_entry(char **cmd, t_env *env)
 {
-	int		i;
-
-	i = 0;
 	if (cmd == NULL)
 		return (1);
-	while (cmd[i] != 0)
+	if (ft_strcmp(cmd[0], "exit") == 0)
+		return (-1);
+	else if (ft_strcmp(cmd[0], "setenv") == 0)
 	{
-		if (ft_strcmp(cmd[i], "exit") == 0)
-			return (-1);
-		else if (ft_strcmp(cmd[i], "setenv") == 0)
-		{
-			env = ft_setenv(cmd, env, i);
-			return (0);
-		}
-		else if (ft_strcmp(cmd[i], "unsetenv") == 0)
-			ft_unsetenv(&env, cmd[i + 1]);
-		else if (ft_strcmp(cmd[i], "env") == 0)
-		{
-			print_list(env);
-			return (0);
-		}
-		i++;
+		env = ft_setenv(cmd, env);
+		return (0);
+	}
+	else if (ft_strcmp(cmd[0], "unsetenv") == 0)
+		ft_unsetenv(&env, cmd[1]);
+	else if (ft_strcmp(cmd[0], "env") == 0)
+	{
+		print_list(env);
+		return (0);
 	}
 	return (0);
 }
@@ -61,21 +55,16 @@ static int			manage_entry(char **cmd, t_env *env)
 int					read_entry(char **cmd, t_env *env)
 {
 	int		i;
-	int		j;
 	char	**tab;
 
 	i = 0;
 	while (cmd[i])
 	{
-		j = 0;
 		tab = ft_strsplit(cmd[i], ' ');
-		while (tab[j])
-		{
-			if (manage_entry(tab, env) == -1)
-				return (-1);
-			j++;
-		}
+		if (manage_entry(tab, env) == -1)
+			return (-1);
 		i++;
+		free_tab(tab);
 	}
 	return (0);
 }

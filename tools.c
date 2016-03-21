@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:31:10 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/20 16:33:24 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:38:52 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void		print_list(t_env *env)
 	{
 		while (env)
 		{
-			ft_putstr(env->var);
+			ft_putstr(env->name);
+			ft_putchar('=');
+			ft_putstr(env->content);
 			ft_putchar('\n');
 			env = env->next;
 		}

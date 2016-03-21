@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 12:15:32 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:32:58 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 
 typedef struct			s_env
 {
-	char			*var;
+	char			*name;
+	char			*content;
 	struct s_env	*next;
 }						t_env;
 
+char					*getvarname(char *envar);
+char					*getvarcontent(char *envar);
 void					ft_unsetenv(t_env **begin_list, char *varname);
-t_env					*ft_setenv(char **cmd, t_env *env, int i);
+t_env					*ft_setenv(char **cmd, t_env *env);
 void					free_list(t_env **head);
 void					free_tab(char **tab);
 char					**ft_tabdup(char **tab);
