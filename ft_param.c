@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 17:53:40 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:43:48 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,30 @@ t_env				*env_in_list(char *envar, t_env *start)
 
 static int			manage_entry(char **cmd, t_env *env)
 {
+	t_env	*tmpenv;
+
+	tmpenv = NULL;
+	tmpenv = env_cpy(tmpenv, env);
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		return (-1);
 	else if (ft_strcmp(cmd[0], "setenv") == 0)
 	{
-		env = ft_setenv(cmd, env);
+		tmpenv = ft_setenv(cmd, env);
 		return (0);
 	}
 	else if (ft_strcmp(cmd[0], "unsetenv") == 0)
 		ft_unsetenv(&env, cmd[1]);
 	else if (ft_strcmp(cmd[0], "env") == 0)
 	{
-		print_list(env);
+		print_list(tmpenv);
 		return (0);
 	}
 	else if (ft_strcmp(cmd[0], "cd") == 0)
 	{
-		ft_cd(cmd[1], env);
+		ft_cd(cmd[1], tmpenv);
 		return (0);
 	}
+	free_list(&tmpenv);
 	return (0);
 }
 

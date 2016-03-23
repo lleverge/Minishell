@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 15:29:48 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:27:42 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct			s_env
 	struct s_env	*next;
 }						t_env;
 
+t_env					*var_cpy(t_env *env, t_env *cpy);
+t_env					*env_cpy(t_env *envtmp, t_env *env);
 void					change_varcontent(t_env *env,
 										char *name_ref, char *data);
 void					ft_cd(char *moveto, t_env *env);

@@ -6,11 +6,39 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:18:57 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/21 16:22:55 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:45:32 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_env		*env_cpy(t_env *envtmp, t_env *env)
+{
+	while (env)
+	{
+		envtmp = var_cpy(env, envtmp);
+		env = env->next;
+	}
+	return (envtmp);
+}
+
+t_env		*var_cpy(t_env *start, t_env *cpy)
+{
+	t_env	*tmp;
+	t_env	*voyager;
+
+	tmp = (t_env *)malloc(sizeof(t_env));
+	voyager = cpy;
+	tmp->name = ft_strdup(start->name);
+	tmp->content = ft_strdup(start->content);
+	tmp->next = NULL;
+	if (voyager == NULL)
+		return (tmp);
+	while (voyager->next)
+		voyager = voyager->next;
+	voyager->next = tmp;
+	return (cpy);
+}
 
 char		*getvarcontent(char *envar)
 {
