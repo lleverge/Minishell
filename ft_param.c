@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 11:51:30 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/24 12:52:02 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ static int			manage_entry(char **cmd, t_env *env)
 	}
 	else
 	{
-		exe_fork(env, cmd, path_in_tab(env));
-		return (0);
+		if ((exe_fork(env, cmd, path_in_tab(env)) == -1))
+			return (1);
+		else
+			return (0);	
 	}
 	free_list(&tmpenv);
 	return (0);

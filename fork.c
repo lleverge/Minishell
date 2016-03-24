@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:32:12 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 12:13:09 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/24 13:15:26 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,34 @@ static char		*search_path(char **path_tab, char **cmd)
 	while (path_tab[i] != 0)
 	{
 		ret = opendir(path_tab[i]);
-		elem = readdir(ret);
-		while (elem)
+		if (access(ft_strjoin(path_tab[i], "/"), X_OK) != -1)
 		{
-			if (ft_strcmp(cmd[0], elem->d_name) == 0)
+			while ((elem = readdir(ret)))
 			{
-				return (ft_strdup(path_tab[i]));
+				if (ft_strcmp(cmd[0], elem->d_name) == 0)
+				{
+					closedir(ret);
+					return (ft_strdup(path_tab[i]));
+				}
 			}
-			elem = readdir(ret);
+			closedir(ret);
 		}
+		i++;
 	}
 	return (NULL);
 }
 
-void		exe_fork(t_env *env, char **cmd, char **path_tab)
+int			exe_fork(t_env *env, char **cmd, char **path_tab)
 {
 	pid_t	pid;
 	char	*cmd_path;
 	char	**env_cpy;
 
-	cmd_path = search_path(path_tab, cmd);
+	if ((cmd_path = search_path(path_tab, cmd)) == NULL)
+	{
+		ft_putstr_fd("Error: command not found\n", 2);
+		return (-1);
+	}
 	env_cpy = list_in_tab(env);
 /*	if (access(cmd[0], X_OK) != -1)
 	{*/
@@ -70,6 +78,7 @@ void		exe_fork(t_env *env, char **cmd, char **path_tab)
 		cmd_path = ft_strjoin(cmd_path, cmd[0]);
 		execve(cmd_path, cmd, env_cpy);
 	}
+	return (0);
 	/*}
 	else
 	ft_putstr_fd("Permission denied\n", 2);*/
