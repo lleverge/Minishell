@@ -6,13 +6,13 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:32:12 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 13:15:26 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/24 14:22:15 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		**path_in_tab(t_env *env)
+char			**path_in_tab(t_env *env)
 {
 	char	**path_tab;
 
@@ -31,7 +31,7 @@ char		**path_in_tab(t_env *env)
 static char		*search_path(char **path_tab, char **cmd)
 {
 	DIR				*ret;
-	struct	dirent	*elem;
+	struct dirent	*elem;
 	int				i;
 
 	i = 0;
@@ -55,7 +55,7 @@ static char		*search_path(char **path_tab, char **cmd)
 	return (NULL);
 }
 
-int			exe_fork(t_env *env, char **cmd, char **path_tab)
+int				exe_fork(t_env *env, char **cmd, char **path_tab)
 {
 	pid_t	pid;
 	char	*cmd_path;
@@ -63,12 +63,11 @@ int			exe_fork(t_env *env, char **cmd, char **path_tab)
 
 	if ((cmd_path = search_path(path_tab, cmd)) == NULL)
 	{
-		ft_putstr_fd("Error: command not found\n", 2);
+		ft_putstr_fd(cmd[0], 2);
+		ft_putstr_fd(": command not found.\n", 2);
 		return (-1);
 	}
 	env_cpy = list_in_tab(env);
-/*	if (access(cmd[0], X_OK) != -1)
-	{*/
 	pid = fork();
 	if (pid > 0)
 		wait(0);
@@ -79,7 +78,4 @@ int			exe_fork(t_env *env, char **cmd, char **path_tab)
 		execve(cmd_path, cmd, env_cpy);
 	}
 	return (0);
-	/*}
-	else
-	ft_putstr_fd("Permission denied\n", 2);*/
 }
