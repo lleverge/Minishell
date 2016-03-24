@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:53:30 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 15:01:54 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:05:24 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ static void		already_exist(t_env **begin_list, char *varname)
 {
 	t_env   *tmp;
 
-    tmp = *begin_list;
-    if (*begin_list)
-    {
-        if (!(ft_strcmp((*(begin_list))->name, varname)))
-        {
-            tmp = *begin_list;
-            *begin_list = (*(begin_list))->next;
-            ft_strdel(&(tmp->name));
-            ft_strdel(&(tmp->content));
-            free(tmp);
-        }
-        else
-            already_exist(&(*begin_list)->next, varname);
+	tmp = *begin_list;
+	if (*begin_list)
+	{
+		if (!(ft_strcmp((*(begin_list))->name, varname)))
+		{
+			tmp = *begin_list;
+			*begin_list = (*(begin_list))->next;
+			ft_strdel(&(tmp->name));
+			ft_strdel(&(tmp->content));
+			free(tmp);
+		}
+		else
+			already_exist(&(*begin_list)->next, varname);
 	}
 }
 
