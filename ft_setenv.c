@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:53:30 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 15:05:24 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/05 14:44:30 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int		test_alpha(char *str)
 	return (0);
 }
 
-static void		already_exist(t_env **begin_list, char *varname)
+void			already_exist(t_env **begin_list, char *varname)
 {
-	t_env   *tmp;
+	t_env	*tmp;
 
 	tmp = *begin_list;
 	if (*begin_list)
@@ -72,7 +72,10 @@ t_env			*ft_setenv(char **cmd, t_env *env)
 	if (!(cmd[1]))
 		print_list(env);
 	else if (test_alpha(cmd[1]) == -1)
-		ft_putstr_fd("setenv: Variable name must contain alphanumeric characters.\n", 2);
+	{
+		ft_putstr_fd("setenv: Variable name must contain ", 2);
+		ft_putstr_fd("alphanumeric characters.\n", 2);
+	}
 	else if (cmd[1] && !cmd[2])
 	{
 		already_exist(&env, cmd[1]);

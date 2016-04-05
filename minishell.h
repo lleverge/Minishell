@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 12:50:19 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/05 12:05:22 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct			s_env
 	struct s_env	*next;
 }						t_env;
 
+void					already_exist(t_env **begin_list, char *varname);
 int						list_size(t_env *env);
 char					**list_in_tab(t_env *env);
 char					**path_in_tab(t_env *env);

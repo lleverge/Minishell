@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 15:04:44 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/05 14:40:33 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,37 +31,31 @@ t_env				*env_in_list(char *envar, t_env *start)
 
 static int			do_builtin(char **cmd, t_env *env, t_env *tmpenv)
 {
+	int		i;
+
+	i = 0;
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		return (-1);
-	else if (ft_strcmp(cmd[0], "setenv") == 0)
-	{
-		tmpenv = ft_setenv(cmd, env);
-		return (0);
-	}
-	else if (ft_strcmp(cmd[0], "unsetenv") == 0)
-	{
-		ft_unsetenv(&env, cmd[1]);
-		return (0);
-	}
-	else if (ft_strcmp(cmd[0], "env") == 0)
-	{
-		ft_env(tmpenv, cmd);
-		return (0);
-	}
-	else if (ft_strcmp(cmd[0], "cd") == 0)
-	{
-		ft_cd(cmd[1], tmpenv);
-		return (0);
-	}
 	else
 	{
-		if ((exe_fork(env, cmd, path_in_tab(env)) == -1))
-			return (1);
+		if (ft_strcmp(cmd[0], "setenv") == 0)
+			tmpenv = ft_setenv(cmd, env);
+		else if (ft_strcmp(cmd[0], "unsetenv") == 0)
+		{
+			while (cmd[++i])
+				ft_unsetenv(&env, cmd[i]);
+		}
+		else if (ft_strcmp(cmd[0], "env") == 0)
+			ft_env(tmpenv, cmd);
+		else if (ft_strcmp(cmd[0], "cd") == 0)
+			ft_cd(cmd[1], tmpenv);
 		else
-			return (0);
+		{
+			if ((exe_fork(env, cmd, path_in_tab(env)) == -1))
+				return (1);
+		}
 	}
-	return (-42);
-	free_list(&tmpenv);
+	return (0);
 }
 
 static int			manage_entry(char **cmd, t_env *env)
