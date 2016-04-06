@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/05 14:40:33 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/06 14:01:41 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int					read_entry(char **cmd, t_env *env)
 		return (-1);
 	while (cmd[i])
 	{
-		tab = ft_strsplit(cmd[i], ' ');
+		tab = ft_strsplit_ws(cmd[i]);
 		if (manage_entry(tab, env) == -1)
 			return (-1);
 		i++;
