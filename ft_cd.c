@@ -6,18 +6,11 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 13:58:26 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 15:25:33 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/06 16:02:56 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void		ft_cd_error(char *name)
-{
-	ft_putstr_fd(name, 2);
-	ft_putstr_fd(": No such file or directory.", 2);
-	ft_putchar('\n');
-}
 
 static void		ft_cd_prev(t_env *env)
 {
@@ -50,16 +43,24 @@ static void		ft_cd_home(t_env *env)
 	}
 }
 
-void			ft_cd(char *moveto, t_env *env)
+static void		manage_error(char *moveto, t_env *env)
 {
-	if (!moveto || (ft_strcmp(moveto, "~") == 0))
-		ft_cd_home(env);
-	else if (ft_strcmp(moveto, "-") == 0)
-		ft_cd_prev(env);
-	else if (opendir(moveto) == NULL)
+	t_stat	st;
+
+	if (stat(moveto, &st) == -1)
 	{
-		ft_cd_error(moveto);
-		return ;
+		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(": No such file or directory.\n", 2);
+	}
+	else if (!(S_ISDIR(st.st_mode)))
+	{
+		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(": Not a directory.\n", 2);
+	}
+	else if (access(moveto, X_OK) == -1)
+	{
+		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(": Permission denied.\n", 2);
 	}
 	else
 	{
@@ -67,4 +68,14 @@ void			ft_cd(char *moveto, t_env *env)
 		chdir(moveto);
 		change_varcontent(env, "PWD", getwd(NULL));
 	}
+}
+
+void			ft_cd(char *moveto, t_env *env)
+{
+	if (!moveto || (ft_strcmp(moveto, "~") == 0))
+		ft_cd_home(env);
+	else if (ft_strcmp(moveto, "-") == 0)
+		ft_cd_prev(env);
+	else
+		manage_error(moveto, env);
 }

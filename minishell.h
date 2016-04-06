@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 14:58:29 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/06 16:03:39 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # include "libft/libft.h"
 # include <dirent.h>
+# include <sys/stat.h>
 
 typedef struct			s_env
 {
@@ -21,6 +22,8 @@ typedef struct			s_env
 	char			*content;
 	struct s_env	*next;
 }						t_env;
+
+typedef struct stat		t_stat;
 
 char					**ft_tabdup_path(char **tab, char *content);
 char					**ft_strsplit_ws(char const *s);
