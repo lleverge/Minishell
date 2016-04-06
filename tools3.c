@@ -6,11 +6,29 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 12:01:29 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 12:11:30 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/06 14:59:43 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**ft_tabdup_path(char **tab, char *content)
+{
+	char	**tab_cpy;
+	int		i;
+
+	i = 0;
+	if (!(tab_cpy = (char **)malloc(sizeof(char *) * (count_tablen(tab) + 2))))
+		exit(1);
+	while (tab[i] != 0)
+	{
+		tab_cpy[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	tab_cpy[i] = ft_strdup(content);
+	free_tab(tab);
+	return (tab_cpy);
+}
 
 int		list_size(t_env *env)
 {

@@ -6,26 +6,31 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:32:12 by lleverge          #+#    #+#             */
-/*   Updated: 2016/03/24 14:22:15 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/06 14:56:23 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "stdio.h"
 
 char			**path_in_tab(t_env *env)
 {
 	char	**path_tab;
+	int		nb_dir;
 
+	nb_dir = 0;
 	while (env)
 	{
 		if (ft_strcmp(env->name, "PATH") == 0)
-		{
 			path_tab = ft_strsplit(env->content, ':');
-			return (path_tab);
-		}
+		if (ft_strcmp(env->name, "PWD") == 0)
+			path_tab = ft_tabdup_path(path_tab, env->content);
 		env = env->next;
 	}
-	return (NULL);
+	if (!path_tab)
+		return (NULL);
+	else
+		return (path_tab);
 }
 
 static char		*search_path(char **path_tab, char **cmd)
