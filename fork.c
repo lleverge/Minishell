@@ -6,12 +6,11 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:32:12 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 14:56:23 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/06 18:22:31 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "stdio.h"
 
 char			**path_in_tab(t_env *env)
 {
@@ -58,6 +57,33 @@ static char		*search_path(char **path_tab, char **cmd)
 		i++;
 	}
 	return (NULL);
+}
+
+int				exe_fork2(t_env *env, char **cmd, char **path_tab)
+{
+	pid_t	pid;
+	char	*cmd_path;
+	char	**cmd_tab;
+
+	cmd_tab = part_tabcpy(cmd);
+	if ((cmd_path = search_path(path_tab, cmd_tab)) == NULL)
+	{
+		ft_putstr_fd(cmd[0], 2);
+		ft_putstr_fd(": command not found.\n", 2);
+		return (-1);
+	}
+	free_list(&env);
+	pid = fork();
+	if (pid > 0)
+		wait(0);
+	else if (pid == 0)
+	{
+		cmd_path = ft_strjoin(cmd_path, "/");
+		cmd_path = ft_strjoin(cmd_path, cmd_tab[0]);
+		if (env_manage_error(cmd_path) != -1)
+			execve(cmd_path, cmd_tab, NULL);
+	}
+	return (0);
 }
 
 int				exe_fork(t_env *env, char **cmd, char **path_tab)

@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 12:01:29 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 14:59:43 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/06 18:11:17 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,34 @@ char	**ft_tabdup_path(char **tab, char *content)
 	tab_cpy[i] = ft_strdup(content);
 	free_tab(tab);
 	return (tab_cpy);
+}
+
+char	**part_tabcpy(char **tab)
+{
+	int		i;
+	int		j;
+	int		count;
+	char	**new;
+
+	i = 2;
+	j = 0;
+	count = 0;
+	while (tab[i] != 0)
+	{
+		count++;
+		i++;
+	}
+	if (!(new = (char **)malloc(sizeof(char *) * count + 1)))
+		return (NULL);
+	i = 2;
+	while (tab[i] != 0)
+	{
+		new[j] = ft_strdup(tab[i]);
+		j++;
+		i++;
+	}
+	new[j] = NULL;
+	return (new);
 }
 
 int		list_size(t_env *env)
