@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 15:48:21 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 18:46:54 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 14:21:05 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void			ft_env_u(t_env *env, char **cmd)
 	}
 }
 
-static void			ft_env_opt(t_env *env, char **cmd)
+static void			ft_env_opt(t_env *env, t_env *tmpenv, char **cmd)
 {
 	int		i;
 	int		j;
@@ -93,13 +93,13 @@ static void			ft_env_opt(t_env *env, char **cmd)
 		}
 		else if (cmd[1][j] == 'i')
 		{
-			ft_env_i(env, cmd);
+			ft_env_i(tmpenv, cmd);
 			return ;
 		}
 	}
 }
 
-void				ft_env(t_env *env, char **cmd)
+void				ft_env(t_env *env, t_env *tmpenv, char **cmd)
 {
 	int		i;
 
@@ -107,16 +107,16 @@ void				ft_env(t_env *env, char **cmd)
 	if (!cmd[1])
 		print_list(env);
 	else if (cmd[1] && cmd[1][0] == '-')
-		ft_env_opt(env, cmd);
+		ft_env_opt(env, tmpenv, cmd);
 	else if (cmd[1] && cmd[1][0] != '-')
 	{
 		while (cmd[1][i])
 		{
 			if (cmd[1][i] == '=')
 			{
-				already_exist(&env, getvarname(cmd[1]));
-				add_var(env, cmd[1]);
-				print_list(env);
+				already_exist(&tmpenv, getvarname(cmd[1]));
+				tmpenv = add_var(tmpenv, cmd[1]);
+				print_list(tmpenv);
 				return ;
 			}
 			i++;

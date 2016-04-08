@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 18:43:39 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 13:58:44 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int						list_size(t_env *env);
 char					**list_in_tab(t_env *env);
 char					**path_in_tab(t_env *env);
 int						exe_fork(t_env *env, char **cmd, char **path_tab);
-void					ft_env(t_env *env, char **cmd);
+void					ft_env(t_env *env, t_env *tmpenv, char **cmd);
 t_env					*var_cpy(t_env *env, t_env *cpy);
 t_env					*env_cpy(t_env *envtmp, t_env *env);
 void					change_varcontent(t_env *env,

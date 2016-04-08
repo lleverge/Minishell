@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 14:01:41 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 15:20:34 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static int			do_builtin(char **cmd, t_env *env, t_env *tmpenv)
 	else
 	{
 		if (ft_strcmp(cmd[0], "setenv") == 0)
-			tmpenv = ft_setenv(cmd, env);
+			env = ft_setenv(cmd, env);
 		else if (ft_strcmp(cmd[0], "unsetenv") == 0)
 		{
 			while (cmd[++i])
 				ft_unsetenv(&env, cmd[i]);
 		}
 		else if (ft_strcmp(cmd[0], "env") == 0)
-			ft_env(tmpenv, cmd);
+			ft_env(env, tmpenv, cmd);
 		else if (ft_strcmp(cmd[0], "cd") == 0)
-			ft_cd(cmd[1], tmpenv);
+			ft_cd(cmd[1], env);
 		else
 		{
 			if ((exe_fork(env, cmd, path_in_tab(env)) == -1))

@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:53:30 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/05 14:44:30 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 15:19:30 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ t_env			*ft_setenv(char **cmd, t_env *env)
 	{
 		already_exist(&env, cmd[1]);
 		env = add_var(env, cmd[1], NULL);
+		print_list(env);
 	}
 	else if (cmd[1] && cmd[2] && !cmd[3])
 	{
 		already_exist(&env, cmd[1]);
 		env = add_var(env, cmd[1], cmd[2]);
+		print_list(env);
 	}
 	else
 		ft_putstr_fd("setenv: Too many arguments.\n", 2);
