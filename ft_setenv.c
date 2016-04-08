@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:53:30 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/08 15:19:30 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 16:27:50 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ static t_env	*add_var(t_env *start, char *name, char *data)
 	return (start);
 }
 
-t_env			*ft_setenv(char **cmd, t_env *env)
+t_env			*ft_setenv(char **cmd, t_env **env)
 {
 	if (!(cmd[1]))
-		print_list(env);
+		print_list(*env);
 	else if (test_alpha(cmd[1]) == -1)
 	{
 		ft_putstr_fd("setenv: Variable name must contain ", 2);
@@ -78,17 +78,17 @@ t_env			*ft_setenv(char **cmd, t_env *env)
 	}
 	else if (cmd[1] && !cmd[2])
 	{
-		already_exist(&env, cmd[1]);
-		env = add_var(env, cmd[1], NULL);
-		print_list(env);
+		already_exist(env, cmd[1]);
+		*env = add_var(*env, cmd[1], NULL);
+		print_list(*env);
 	}
 	else if (cmd[1] && cmd[2] && !cmd[3])
 	{
-		already_exist(&env, cmd[1]);
-		env = add_var(env, cmd[1], cmd[2]);
-		print_list(env);
+		already_exist(env, cmd[1]);
+		*env = add_var(*env, cmd[1], cmd[2]);
+		print_list(*env);
 	}
 	else
 		ft_putstr_fd("setenv: Too many arguments.\n", 2);
-	return (env);
+	return (*env);
 }

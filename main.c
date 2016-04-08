@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:36:28 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/08 14:34:51 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 17:34:19 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ int				main(int argc, char **argv, char **environ)
 	while (envi[++i] != 0)
 		env = env_in_list(envi[i], env);
 	free_tab(envi);
-	if (argc == 1)
+	if (argc == 1 && argv[0])
 	{
-		ft_strlen(argv[0]);
-		while ((read_entry(ft_strsplit(line, ';'), env)) != -1)
+		while ((read_entry(ft_strsplit(line, ';'), &env)) != -1)
 		{
 			print_prompt();
 			ft_strdel(&line);

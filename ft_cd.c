@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 13:58:26 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 16:02:56 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 18:02:09 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void		ft_cd_prev(t_env *env)
 {
+	char	buf[512];
 	char	*tmp;
 
 	while (env)
@@ -21,7 +22,8 @@ static void		ft_cd_prev(t_env *env)
 		if (ft_strcmp(env->name, "OLDPWD") == 0)
 		{
 			tmp = env->content;
-			change_varcontent(env, "OLDPWD", getwd(NULL));
+			if (getwd(buf) != NULL)
+				change_varcontent(env, "OLDPWD", getwd(NULL));
 			chdir(tmp);
 			change_varcontent(env, "PWD", getwd(NULL));
 		}
@@ -31,11 +33,14 @@ static void		ft_cd_prev(t_env *env)
 
 static void		ft_cd_home(t_env *env)
 {
+	char	buf[512];
+
 	while (env)
 	{
 		if (ft_strcmp(env->name, "HOME") == 0)
 		{
-			change_varcontent(env, "OLDPWD", getwd(NULL));
+			if (getwd(buf) != NULL)
+				change_varcontent(env, "OLDPWD", getwd(NULL));
 			chdir(env->content);
 			change_varcontent(env, "PWD", getwd(NULL));
 		}
@@ -70,12 +75,12 @@ static void		manage_error(char *moveto, t_env *env)
 	}
 }
 
-void			ft_cd(char *moveto, t_env *env)
+void			ft_cd(char *moveto, t_env **env)
 {
 	if (!moveto || (ft_strcmp(moveto, "~") == 0))
-		ft_cd_home(env);
+		ft_cd_home(*env);
 	else if (ft_strcmp(moveto, "-") == 0)
-		ft_cd_prev(env);
+		ft_cd_prev(*env);
 	else
-		manage_error(moveto, env);
+		manage_error(moveto, *env);
 }

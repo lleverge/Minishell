@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:32:12 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/06 18:22:31 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 17:34:43 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char			**path_in_tab(t_env *env)
 	int		nb_dir;
 
 	nb_dir = 0;
+	path_tab = NULL;
 	while (env)
 	{
 		if (ft_strcmp(env->name, "PATH") == 0)
@@ -39,6 +40,8 @@ static char		*search_path(char **path_tab, char **cmd)
 	int				i;
 
 	i = 0;
+	if (!path_tab)
+		return (NULL);
 	while (path_tab[i] != 0)
 	{
 		ret = opendir(path_tab[i]);

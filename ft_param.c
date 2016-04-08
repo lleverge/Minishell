@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/08 15:20:34 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/08 17:11:24 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env				*env_in_list(char *envar, t_env *start)
 	return (start);
 }
 
-static int			do_builtin(char **cmd, t_env *env, t_env *tmpenv)
+static int			do_builtin(char **cmd, t_env **env, t_env *tmpenv)
 {
 	int		i;
 
@@ -39,11 +39,11 @@ static int			do_builtin(char **cmd, t_env *env, t_env *tmpenv)
 	else
 	{
 		if (ft_strcmp(cmd[0], "setenv") == 0)
-			env = ft_setenv(cmd, env);
+			*env = ft_setenv(cmd, env);
 		else if (ft_strcmp(cmd[0], "unsetenv") == 0)
 		{
 			while (cmd[++i])
-				ft_unsetenv(&env, cmd[i]);
+				ft_unsetenv(env, cmd[i]);
 		}
 		else if (ft_strcmp(cmd[0], "env") == 0)
 			ft_env(env, tmpenv, cmd);
@@ -51,26 +51,26 @@ static int			do_builtin(char **cmd, t_env *env, t_env *tmpenv)
 			ft_cd(cmd[1], env);
 		else
 		{
-			if ((exe_fork(env, cmd, path_in_tab(env)) == -1))
+			if ((exe_fork(*env, cmd, path_in_tab(*env)) == -1))
 				return (1);
 		}
 	}
 	return (0);
 }
 
-static int			manage_entry(char **cmd, t_env *env)
+static int			manage_entry(char **cmd, t_env **env)
 {
 	t_env	*tmpenv;
 
 	tmpenv = NULL;
-	tmpenv = env_cpy(tmpenv, env);
-	if (do_builtin(cmd, env, tmpenv) < 0)
+	tmpenv = env_cpy(tmpenv, *env);
+	if (do_builtin(cmd, env, tmpenv) == -1)
 		return (-1);
 	else
 		return (0);
 }
 
-int					read_entry(char **cmd, t_env *env)
+int					read_entry(char **cmd, t_env **env)
 {
 	int		i;
 	char	**tab;
