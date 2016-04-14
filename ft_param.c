@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/08 17:11:24 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/14 10:16:38 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int			do_builtin(char **cmd, t_env **env, t_env *tmpenv)
 			ft_cd(cmd[1], env);
 		else
 		{
-			if ((exe_fork(*env, cmd, path_in_tab(*env)) == -1))
+			if ((exe_fork(*env, cmd, path_in_tab(*env, cmd)) == -1))
 				return (1);
 		}
 	}
