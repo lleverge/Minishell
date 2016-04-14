@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 10:15:52 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/14 15:45:45 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 # include "libft/libft.h"
 # include <dirent.h>
 # include <sys/stat.h>
+# define RED "[31m"
+# define BLUE "[34m"
+# define CYAN "[36m"
+# define RESET "[39m"
+# define GREEN "[32m"
+# define YELLOW "[33m"
+# define MAGENTA "[35m"
 
 typedef struct			s_env
 {
@@ -25,6 +32,7 @@ typedef struct			s_env
 
 typedef struct stat		t_stat;
 
+char					*get_data(t_env *env, char *ref_name);
 char					*ft_getbin_path(char *cmd);
 char					*ft_getbin_name(char *cmd);
 void					ft_env_error(char *file);
@@ -59,5 +67,5 @@ t_env					*env_in_list(char *envar, t_env *start);
 void					print_list(t_env *env);
 void					print_tab(char **tab);
 int						read_entry(char **cmd, t_env **env);
-void					print_prompt(void);
+void					prompt(t_env *env);
 #endif

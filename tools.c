@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:31:10 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 09:33:58 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/14 14:32:10 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,4 @@ void		print_tab(char **tab)
 		ft_putchar('\n');
 		i++;
 	}
-}
-
-void		print_prompt(void)
-{
-	ft_putstr("$> ");
 }

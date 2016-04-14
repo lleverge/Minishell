@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:36:28 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/08 17:34:19 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/14 14:33:31 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int				main(int argc, char **argv, char **environ)
 	{
 		while ((read_entry(ft_strsplit(line, ';'), &env)) != -1)
 		{
-			print_prompt();
+			prompt(env);
 			ft_strdel(&line);
 			get_next_line(0, &line);
 		}
