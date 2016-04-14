@@ -6,7 +6,7 @@
 #    By: lleverge <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/21 17:32:58 by lleverge          #+#    #+#              #
-#    Updated: 2016/04/14 14:32:56 by lleverge         ###   ########.fr        #
+#    Updated: 2016/04/14 16:54:21 by lleverge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = main.c	tools.c		ft_param.c		free.c\
 	env2.c	tools4.c	prompt.c
 OBJ = $(SRC:.c=.o)
 LIB = ./libft/libft.a
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
 $(NAME): $(OBJ)
 	make -C ./libft

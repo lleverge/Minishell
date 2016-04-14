@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 10:16:38 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/14 19:55:08 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int			do_builtin(char **cmd, t_env **env, t_env *tmpenv)
 	int		i;
 
 	i = 0;
+	ft_putstr(cmd[0]);
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		return (-1);
 	else
@@ -65,9 +66,15 @@ static int			manage_entry(char **cmd, t_env **env)
 	tmpenv = NULL;
 	tmpenv = env_cpy(tmpenv, *env);
 	if (do_builtin(cmd, env, tmpenv) == -1)
+	{
+		free_list(&tmpenv);
 		return (-1);
+	}
 	else
+	{
+		free_list(&tmpenv);
 		return (0);
+	}
 }
 
 int					read_entry(char **cmd, t_env **env)
@@ -77,14 +84,19 @@ int					read_entry(char **cmd, t_env **env)
 
 	i = 0;
 	if (cmd == NULL)
-		return (-1);
+		return (1);
 	while (cmd[i])
 	{
 		tab = ft_strsplit_ws(cmd[i]);
 		if (manage_entry(tab, env) == -1)
+		{
+			free_tab(cmd);
+			free_tab(tab);
 			return (-1);
+		}
 		i++;
 		free_tab(tab);
 	}
+	free_tab(cmd);
 	return (0);
 }

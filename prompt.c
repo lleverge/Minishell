@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/14 14:15:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 15:52:16 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/14 17:27:25 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void		prompt_user(t_env *env)
 	char *user;
 
 	user = get_data(env, "USER");
-	ft_putstr("# ");
+	ft_putstr("\n# ");
 	if (user)
 	{
 		color(YELLOW, user);
@@ -49,6 +49,7 @@ static void		prompt_path(t_env *env)
 {
 	char	*tmp;
 	char	*home;
+	char	*new;
 
 	tmp = get_data(env, "PWD");
 	home = get_data(env, "HOME");
@@ -62,8 +63,10 @@ static void		prompt_path(t_env *env)
 	{
 		color(GREEN, "");
 		ft_putstr("~");
-		ft_putstr_sp(ft_strsub(tmp, ft_strlen(home), ft_strlen(tmp)));
+		new = ft_strsub(tmp, ft_strlen(home), ft_strlen(tmp));
+		ft_putstr_sp(new);
 		color(RESET, "");
+		ft_strdel(&new);
 	}
 	else
 	{
