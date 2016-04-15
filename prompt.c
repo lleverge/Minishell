@@ -6,19 +6,19 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/14 14:15:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 17:27:25 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 18:24:25 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		ft_putstr_sp(char *str)
+void			ft_putstr_sp(char *str)
 {
 	ft_putstr(str);
 	ft_putchar(' ');
 }
 
-static void		color(char *color, char *target)
+void			color(char *color, char *target)
 {
 	ft_putchar_fd('\033', 2);
 	ft_putstr_fd(color, 2);
@@ -51,6 +51,7 @@ static void		prompt_path(t_env *env)
 	char	*home;
 	char	*new;
 
+	new = NULL;
 	tmp = get_data(env, "PWD");
 	home = get_data(env, "HOME");
 	if (!tmp)
@@ -60,14 +61,7 @@ static void		prompt_path(t_env *env)
 		color(RESET, "");
 	}
 	else if (tmp && ft_strncmp(tmp, home, ft_strlen(home)) == 0)
-	{
-		color(GREEN, "");
-		ft_putstr("~");
-		new = ft_strsub(tmp, ft_strlen(home), ft_strlen(tmp));
-		ft_putstr_sp(new);
-		color(RESET, "");
-		ft_strdel(&new);
-	}
+		prompt2(new, tmp, home);
 	else
 	{
 		color(BLUE, "");

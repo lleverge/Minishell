@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 16:17:18 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 18:24:41 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ typedef struct			s_env
 
 typedef struct stat		t_stat;
 
-char					*search_path2(char *tmp2, char *tmp, char **path_tab);
+void					color(char *color, char *target);
+void					ft_putstr_sp(char *str);
+void					prompt2(char *new, char *tmp, char *home);
+char					*search_path2(char *tmp2, char *tmp,
+									char **path_tab, int i);
 void					fork_error(char **cmd, char **path_tab);
 char					*get_data(t_env *env, char *ref_name);
 char					*ft_getbin_path(char *cmd);

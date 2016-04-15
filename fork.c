@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:32:12 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 16:21:01 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 18:17:00 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ static char		*search_path(char **path_tab, char **cmd)
 {
 	char			*tmp;
 	char			*tmp2;
+	int				i;
 
+	i = -1;
 	tmp = NULL;
 	tmp2 = ft_getbin_name(cmd[0]);
 	if (!path_tab)
 		return (NULL);
-	return (search_path2(tmp2, tmp, path_tab));
+	return (search_path2(tmp2, tmp, path_tab, i));
 }
 
 int				exe_fork2(char **cmd, char **path_tab)

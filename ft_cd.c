@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 13:58:26 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/08 18:02:09 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 17:57:00 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,37 @@ static void		ft_cd_prev(t_env *env)
 {
 	char	buf[512];
 	char	*tmp;
+	t_env	*tmpenv;
 
-	while (env)
+	tmpenv = env;
+	while (tmpenv)
 	{
-		if (ft_strcmp(env->name, "OLDPWD") == 0)
+		if (ft_strcmp(tmpenv->name, "OLDPWD") == 0)
 		{
-			tmp = env->content;
-			if (getwd(buf) != NULL)
-				change_varcontent(env, "OLDPWD", getwd(NULL));
+			tmp = tmpenv->content;
+			if (getcwd(buf, 512) != NULL)
+				change_varcontent(tmpenv, "OLDPWD", getcwd(buf, 512));
 			chdir(tmp);
-			change_varcontent(env, "PWD", getwd(NULL));
+			change_varcontent(env, "PWD", getcwd(buf, 512));
 		}
-		env = env->next;
+		tmpenv = tmpenv->next;
 	}
 }
 
 static void		ft_cd_home(t_env *env)
 {
 	char	buf[512];
+	t_env	*tmp;
 
+	tmp = env;
 	while (env)
 	{
 		if (ft_strcmp(env->name, "HOME") == 0)
 		{
-			if (getwd(buf) != NULL)
-				change_varcontent(env, "OLDPWD", getwd(NULL));
+			if (getcwd(buf, 512) != NULL)
+				change_varcontent(env, "OLDPWD", getcwd(buf, 512));
 			chdir(env->content);
-			change_varcontent(env, "PWD", getwd(NULL));
+			change_varcontent(tmp, "PWD", getcwd(buf, 512));
 		}
 		env = env->next;
 	}
@@ -51,6 +55,7 @@ static void		ft_cd_home(t_env *env)
 static void		manage_error(char *moveto, t_env *env)
 {
 	t_stat	st;
+	char	buf[512];
 
 	if (stat(moveto, &st) == -1)
 	{
@@ -69,9 +74,9 @@ static void		manage_error(char *moveto, t_env *env)
 	}
 	else
 	{
-		change_varcontent(env, "OLDPWD", getwd(NULL));
+		change_varcontent(env, "OLDPWD", getcwd(buf, 512));
 		chdir(moveto);
-		change_varcontent(env, "PWD", getwd(NULL));
+		change_varcontent(env, "PWD", getcwd(buf, 512));
 	}
 }
 

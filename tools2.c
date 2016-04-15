@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:18:57 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 15:55:20 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 17:50:39 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ void		change_varcontent(t_env *env, char *name_ref, char *data)
 	{
 		if (!(ft_strcmp(env->name, name_ref)))
 		{
-			ft_strdel(&(env->content));
-			env->content = data;
+			if (env->content)
+				ft_strdel(&(env->content));
+			env->content = ft_strdup(data);
 		}
 		env = env->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/15 15:59:00 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 16:20:12 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 18:16:59 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ void		fork_error(char **cmd, char **path_tab)
 	free_tab(path_tab);
 }
 
-char		*search_path2(char *tmp2, char *tmp, char **path_tab)
+char		*search_path2(char *tmp2, char *tmp, char **path_tab, int i)
 {
 	struct dirent	*elem;
 	DIR				*ret;
-	int				i;
 
-	i = -1;
 	while (path_tab[++i] != 0)
 	{
 		ret = opendir(path_tab[i]);
@@ -41,7 +39,8 @@ char		*search_path2(char *tmp2, char *tmp, char **path_tab)
 					return (ft_strdup(path_tab[i]));
 				}
 		}
-		closedir(ret);
+		if (ret != NULL)
+			closedir(ret);
 		ft_strdel(&tmp);
 	}
 	ft_strdel(&tmp2);
