@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:18:57 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 15:16:43 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:55:20 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char		*getvarcontent(char *envar)
 		j++;
 	j += 1;
 	if (j == i)
-		return ("");
+		return (NULL);
 	else
 		varcontent = ft_strsub(envar, j, i);
 	return (varcontent);

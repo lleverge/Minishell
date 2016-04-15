@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:32:12 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 15:31:20 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 16:21:01 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,14 @@ char			**path_in_tab(t_env *env, char **cmd)
 
 static char		*search_path(char **path_tab, char **cmd)
 {
-	DIR				*ret;
-	struct dirent	*elem;
-	int				i;
 	char			*tmp;
 	char			*tmp2;
 
-	i = -1;
+	tmp = NULL;
 	tmp2 = ft_getbin_name(cmd[0]);
 	if (!path_tab)
 		return (NULL);
-	while (path_tab[++i] != 0)
-	{
-		ret = opendir(path_tab[i]);
-		tmp = ft_strjoin(path_tab[i], "/");
-		if (access(tmp, X_OK) != -1)
-		{
-			while ((elem = readdir(ret)))
-			{
-				if (tmp2 && ft_strcmp(tmp2, elem->d_name) == 0)
-				{
-					closedir(ret);
-					ft_strdel(&tmp);
-					ft_strdel(&tmp2);
-					return (ft_strdup(path_tab[i]));
-				}
-			}
-			closedir(ret);
-		}
-		ft_strdel(&tmp);
-	}
-	ft_strdel(&tmp2);
-	return (NULL);
+	return (search_path2(tmp2, tmp, path_tab));
 }
 
 int				exe_fork2(char **cmd, char **path_tab)
@@ -113,9 +89,7 @@ int				exe_fork(t_env *env, char **cmd, char **path_tab)
 
 	if ((cmd_path = search_path(path_tab, cmd)) == NULL)
 	{
-		ft_putstr_fd(cmd[0], 2);
-		ft_putstr_fd(": command not found.\n", 2);
-		free_tab(path_tab);
+		fork_error(cmd, path_tab);
 		return (-1);
 	}
 	env_cpy = list_in_tab(env);

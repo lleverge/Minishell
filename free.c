@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 16:37:36 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 17:55:31 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:53:15 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void		free_list(t_env **head)
 	while (current)
 	{
 		next = current->next;
-		ft_strdel(&(current->name));
-		ft_strdel(&(current->content));
+		if (current->name)
+			ft_strdel(&(current->name));
+		if (current->content)
+			ft_strdel(&(current->content));
 		free(current);
 		current = next;
 	}
