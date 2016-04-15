@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 13:58:26 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 17:57:00 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 18:49:50 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,40 +52,42 @@ static void		ft_cd_home(t_env *env)
 	}
 }
 
-static void		manage_error(char *moveto, t_env *env)
+static void		manage_error(char **cmd, t_env *env)
 {
 	t_stat	st;
 	char	buf[512];
 
-	if (stat(moveto, &st) == -1)
+	if (stat(cmd[1], &st) == -1)
 	{
-		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd(": No such file or directory.\n", 2);
 	}
 	else if (!(S_ISDIR(st.st_mode)))
 	{
-		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd(": Not a directory.\n", 2);
 	}
-	else if (access(moveto, X_OK) == -1)
+	else if (access(cmd[1], X_OK) == -1)
 	{
-		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd(": Permission denied.\n", 2);
 	}
 	else
 	{
 		change_varcontent(env, "OLDPWD", getcwd(buf, 512));
-		chdir(moveto);
+		chdir(cmd[1]);
 		change_varcontent(env, "PWD", getcwd(buf, 512));
 	}
 }
 
-void			ft_cd(char *moveto, t_env **env)
+void			ft_cd(char **cmd, t_env **env)
 {
-	if (!moveto || (ft_strcmp(moveto, "~") == 0))
+	if (!cmd[1] || (ft_strcmp(cmd[1], "~") == 0))
 		ft_cd_home(*env);
-	else if (ft_strcmp(moveto, "-") == 0)
+	else if (cmd[1] && cmd[2])
+		ft_putstr_fd("cd: Too many arguments.\n", 2);
+	else if (ft_strcmp(cmd[1], "-") == 0)
 		ft_cd_prev(*env);
 	else
-		manage_error(moveto, *env);
+		manage_error(cmd, *env);
 }

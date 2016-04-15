@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 18:24:41 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 18:33:00 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_env					*var_cpy(t_env *env, t_env *cpy);
 t_env					*env_cpy(t_env *envtmp, t_env *env);
 void					change_varcontent(t_env *env,
 										char *name_ref, char *data);
-void					ft_cd(char *moveto, t_env **env);
+void					ft_cd(char **cmd, t_env **env);
 char					*getvarname(char *envar);
 char					*getvarcontent(char *envar);
 void					ft_unsetenv(t_env **begin_list, char *varname);
