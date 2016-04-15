@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 18:36:44 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 13:22:03 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:23:15 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void		ft_env_i(t_env *env, char **cmd)
 {
 	char	**cmd_tab;
 
+	cmd_tab = NULL;
 	if (!cmd[2])
 		return ;
 	else
 	{
 		cmd_tab = part_tabcpy(cmd);
-		exe_fork2(env, cmd_tab, path_in_tab(env, cmd_tab));
+		exe_fork2(cmd_tab, path_in_tab(env, cmd_tab));
+		free_tab(cmd_tab);
 	}
 }
 

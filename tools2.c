@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:18:57 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 09:32:06 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:16:43 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char		*getvarname(char *envar)
 
 	i = 0;
 	j = 0;
-	while (envar[i] != '=')
+	while (envar[i] != '=' && envar[i])
 		i++;
 	varname = ft_strsub(envar, j, i);
 	return (varname);

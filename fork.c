@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:32:12 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 20:09:30 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:31:20 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char			**path_in_tab(t_env *env, char **cmd)
 		else
 			return (NULL);
 	}
+	ft_strdel(&bin_path);
 	return (path_tab);
 }
 
@@ -68,15 +69,15 @@ static char		*search_path(char **path_tab, char **cmd)
 					return (ft_strdup(path_tab[i]));
 				}
 			}
-			ft_strdel(&tmp2);
-			ft_strdel(&tmp);
 			closedir(ret);
 		}
+		ft_strdel(&tmp);
 	}
+	ft_strdel(&tmp2);
 	return (NULL);
 }
 
-int				exe_fork2(t_env *env, char **cmd, char **path_tab)
+int				exe_fork2(char **cmd, char **path_tab)
 {
 	pid_t	pid;
 	char	*cmd_path;
@@ -87,7 +88,6 @@ int				exe_fork2(t_env *env, char **cmd, char **path_tab)
 		free_tab(path_tab);
 		return (-1);
 	}
-	free_list(&env);
 	pid = fork();
 	if (pid > 0)
 		wait(0);

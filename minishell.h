@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/19 16:23:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 19:25:42 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:08:53 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void					ft_env_usage(char opt);
 void					ft_bad_opt(char c);
 void					ft_env_i(t_env *env, char **cmd);
 int						env_manage_error(char *cmd);
-int						exe_fork2(t_env *env, char **cmd, char **path_tab);
+int						exe_fork2(char **cmd, char **path_tab);
 char					**part_tabcpy(char **tab);
 char					**ft_tabdup_path(char **tab, char *content);
 char					**ft_strsplit_ws(char const *s);

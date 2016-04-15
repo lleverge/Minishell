@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 15:36:02 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 19:55:08 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 14:14:07 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int			do_builtin(char **cmd, t_env **env, t_env *tmpenv)
 	int		i;
 
 	i = 0;
-	ft_putstr(cmd[0]);
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		return (-1);
 	else

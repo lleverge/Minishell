@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 15:48:21 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/14 11:59:39 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:20:38 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,11 @@ static void			ft_env_opt(t_env *env, t_env *tmpenv, char **cmd)
 void				ft_env(t_env **env, t_env *tmpenv, char **cmd)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
+	if (cmd[1])
+		tmp = getvarname(cmd[1]);
 	if (!cmd[1])
 		print_list(*env);
 	else if (cmd[1] && cmd[1][0] == '-')
@@ -114,13 +117,15 @@ void				ft_env(t_env **env, t_env *tmpenv, char **cmd)
 		{
 			if (cmd[1][i] == '=')
 			{
-				already_exist(&tmpenv, getvarname(cmd[1]));
+				already_exist(&tmpenv, tmp);
 				tmpenv = add_var(tmpenv, cmd[1]);
 				print_list(tmpenv);
+				ft_strdel(&tmp);
 				return ;
 			}
 			i++;
 		}
 		ft_env_error(cmd[1]);
 	}
+	ft_strdel(&tmp);
 }
