@@ -6,7 +6,7 @@
 /*   By: lleverge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/14 14:15:33 by lleverge          #+#    #+#             */
-/*   Updated: 2016/04/15 18:24:25 by lleverge         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:06:41 by lleverge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static void		prompt_path(t_env *env)
 
 	new = NULL;
 	tmp = get_data(env, "PWD");
-	home = get_data(env, "HOME");
+	if (!(home = get_data(env, "HOME")))
+		home = "";
 	if (!tmp)
 	{
 		color(RED, "");
